@@ -1,0 +1,537 @@
+/* VARIABLES & RESET */
+:root {
+    --primary: #55aef7;       /* Neon Purple */
+    --primary-dim: #229dce;
+    --bg-dark: #050505;
+    --text-main: #ffffff;
+    --text-muted: #9ca3af;
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-blur: 16px;
+    --font-main: 'Outfit', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    cursor: none; /* Hide default cursor */
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg-dark);
+    font-family: var(--font-main);
+    color: var(--text-main);
+    overflow-x: hidden;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 4px;
+}
+
+/* THREE.JS BACKGROUND */
+#webgl {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* =========================
+   FIXED CUSTOM CURSOR (Crosshair)
+   ========================= */
+
+/* Hide the center dot completely */
+.cursor-dot {
+    display: none;
+}
+
+/* The container for the crosshair */
+.cursor-outline {
+    width: 40px; /* Slightly bigger for better visibility */
+    height: 40px;
+    border: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%); /* Centers the crosshair on mouse */
+    z-index: 9999; /* Highest priority */
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* This makes the glow respect the transparent gap */
+    filter: drop-shadow(0 0 4px var(--primary)); 
+}
+
+/* Common style for both lines */
+.cursor-outline::before,
+.cursor-outline::after {
+    content: "";
+    position: absolute;
+    background-color: var(--primary); /* Fallback */
+}
+
+/* Horizontal Line - with clear gap */
+.cursor-outline::before {
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(
+        to right, 
+        var(--primary) 0%, var(--primary) 30%, 
+        transparent 30%, transparent 70%, 
+        var(--primary) 70%, var(--primary) 100%
+    );
+}
+
+/* Vertical Line - with clear gap */
+.cursor-outline::after {
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(
+        to bottom, 
+        var(--primary) 0%, var(--primary) 30%, 
+        transparent 30%, transparent 70%, 
+        var(--primary) 70%, var(--primary) 100%
+    );
+}
+
+/* HOVER EFFECT: Rotate and Scale */
+body.hovered .cursor-outline {
+    transform: translate(-50%, -50%) rotate(45deg) scale(0.8);
+    filter: drop-shadow(0 0 8px var(--primary)); 
+}
+
+/* NAVBAR */
+.glass-nav {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 1000px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: rgba(10, 10, 10, 0.6);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 100px;
+    z-index: 100;
+    transition: all 0.3s ease;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.logo .dot {
+    color: var(--primary);
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 400;
+    font-size: 0.9rem;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover, .nav-links a.active {
+    color: var(--text-main);
+    text-shadow: 0 0 10px rgba(85, 150, 247, 0.5);
+}
+
+.cta-btn {
+    text-decoration: none;
+    background: var(--primary);
+    color: #fff;
+    padding: 0.5rem 1.5rem;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    box-shadow: 0 0 15px rgba(85, 209, 247, 0.3);
+    transition: transform 0.3s;
+}
+
+.cta-btn:hover {
+    transform: scale(1.05);
+}
+
+/* UTILITY: GLASS CARD */
+.glass-card, .glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transition: transform 0.3s, border-color 0.3s;
+}
+
+.glass-card:hover {
+    border-color: rgba(85, 201, 247, 0.4);
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.1);
+}
+
+/* SECTIONS */
+.section-padding {
+    padding: 100px 0;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    position: relative;
+    display: inline-block;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    width: 60px;
+    height: 4px;
+    background: var(--primary);
+    bottom: -10px;
+    left: 0;
+    border-radius: 2px;
+}
+
+/* HERO */
+.hero-section {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.hero-card {
+    padding: 4rem;
+    max-width: 700px;
+    animation: float 6s ease-in-out infinite;
+}
+
+.subtitle {
+    color: var(--primary);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+}
+
+.hero-card h1 {
+    font-size: 5rem;
+    margin: 10px 0;
+    line-height: 1;
+    background: linear-gradient(to right, #fff, #55b6f7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.role-text {
+    font-size: 1.5rem;
+    color: var(--text-muted);
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+}
+
+.hero-btns {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.primary-btn {
+    padding: 1rem 2rem;
+    background: var(--primary);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    border: 1px solid var(--primary);
+    transition: all 0.3s;
+}
+
+.secondary-btn {
+    padding: 1rem 2rem;
+    background: transparent;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    border: 1px solid var(--glass-border);
+    transition: all 0.3s;
+}
+
+.secondary-btn:hover {
+    border-color: var(--primary);
+    background: rgba(85, 209, 247, 0.1);
+}
+
+/* GRID LAYOUTS */
+.grid-layout {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+/* SKILLS */
+.skill-card {
+    text-align: center;
+    padding: 2.5rem 1.5rem;
+}
+
+.skill-card i {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    color: var(--primary);
+}
+
+.progress-bar {
+    width: 100%;
+    height: 6px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
+    margin-top: 15px;
+    overflow: hidden;
+}
+
+.fill {
+    height: 100%;
+    background: var(--primary);
+    box-shadow: 0 0 10px var(--primary);
+}
+
+/* TIMELINE */
+.timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 20px; /* Adjust for mobile */
+    top: 0;
+    height: 100%;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--primary), transparent);
+}
+
+.timeline-item {
+    position: relative;
+    padding-left: 60px;
+    margin-bottom: 3rem;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: 11px;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    background: var(--primary);
+    border-radius: 50%;
+    box-shadow: 0 0 15px var(--primary);
+}
+
+.date {
+    color: var(--primary);
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+/* PROJECTS */
+.project-card {
+    position: relative;
+    text-decoration: none;
+    color: white;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+}
+
+.card-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: var(--primary);
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+.project-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+
+.tech-stack {
+    color: var(--primary);
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+}
+
+.desc {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.link-text {
+    margin-top: auto;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* COMMUNITY & CONTACT */
+.community-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.comm-card {
+    text-align: center;
+    text-decoration: none;
+    color: white;
+}
+
+.comm-card i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    transition: transform 0.3s;
+}
+
+.comm-card:hover i {
+    transform: scale(1.2);
+}
+
+.discord i { color: #5865F2; }
+.youtube i { color: #FF0000; }
+
+.contact-panel {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.social-links {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.social-links a {
+    color: white;
+    font-size: 2rem;
+    transition: all 0.3s;
+}
+
+.social-links a:hover {
+    color: var(--primary);
+    transform: translateY(-5px);
+    text-shadow: 0 0 15px var(--primary);
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 2rem;
+    border-top: 1px solid var(--glass-border);
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* ANIMATIONS */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+/* Scroll Animation Classes */
+.slide-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.slide-up.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .glass-nav {
+        width: 100%;
+        top: 0;
+        border-radius: 0;
+        padding: 1rem;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+    }
+    
+    .nav-links {
+        display: none; /* Simple hiding for mobile, ideally hamburger menu */
+    }
+    
+    .hero-card h1 {
+        font-size: 3.5rem;
+    }
+    
+    .timeline::before {
+        left: 20px;
+    }
+    
+    .timeline-item {
+        padding-left: 50px;
+    }
+}
