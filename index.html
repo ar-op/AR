@@ -5,12 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AR | Creative Developer & Designer</title>
     
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2250%22 fill=%22%23050505%22/><text x=%2250%22 y=%2270%22 font-family=%22sans-serif%22 font-size=%2250%22 fill=%22%23a855f7%22 text-anchor=%22middle%22 font-weight=%22bold%22>AR</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2250%22 fill=%22%23050505%22/><text x=%2250%22 y=%2270%22 font-family=%22sans-serif%22 font-size=%2250%22 fill=%22%2300f3ff%22 text-anchor=%22middle%22 font-weight=%22bold%22>AR</text></svg>">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <link rel="stylesheet" href="style.css">
@@ -21,6 +20,14 @@
 
     <div class="cursor-dot" data-cursor-dot></div>
     <div class="cursor-outline" data-cursor-outline></div>
+
+    <div id="warning-modal" class="warning-modal">
+        <div class="warning-content">
+            <i class="fas fa-exclamation-triangle"></i>
+            <h2>Stealing Detected</h2>
+            <p>This content is protected.</p>
+        </div>
+    </div>
 
     <nav class="glass-nav">
         <div class="logo">AR<span class="dot">.</span></div>
@@ -36,7 +43,7 @@
 
     <main>
         <section id="home" class="hero-section">
-            <div class="glass-card hero-card tilt-card">
+            <div class="glass-card hero-card tilt-card hover-trigger">
                 <span class="subtitle">Hello, I am</span>
                 <h1 class="glitch-text">AR</h1>
                 <h2 class="role-text">Learning Graphic Designing</h2>
@@ -51,7 +58,7 @@
         <section id="about" class="section-padding">
             <div class="container">
                 <h2 class="section-title">About Me</h2>
-                <div class="glass-panel slide-up">
+                <div class="glass-panel slide-up hover-trigger pop-on-hover">
                     <p>I am a passionate creator exploring the intersection of code and design. Currently focused on <strong>Minecraft Plugin development using AI</strong> and <strong>learning Graphic Design</strong>.</p>
                     <p>My journey involves mastering visual aesthetics while building functional tools for the gaming community. I believe in clean code, premium visuals, and user-centric experiences.</p>
                 </div>
@@ -62,17 +69,17 @@
             <div class="container">
                 <h2 class="section-title">Technical Arsenal</h2>
                 <div class="grid-layout">
-                    <div class="glass-card skill-card hover-trigger slide-up">
+                    <div class="glass-card skill-card hover-trigger slide-up pop-on-hover">
                         <i class="fas fa-image icon-glow"></i>
                         <h3>Photoshop</h3>
                         <div class="progress-bar"><div class="fill" style="width: 70%"></div></div>
                     </div>
-                    <div class="glass-card skill-card hover-trigger slide-up">
+                    <div class="glass-card skill-card hover-trigger slide-up pop-on-hover">
                         <i class="fas fa-pen-nib icon-glow"></i>
                         <h3>Illustrator</h3>
                         <div class="progress-bar"><div class="fill" style="width: 60%"></div></div>
                     </div>
-                    <div class="glass-card skill-card hover-trigger slide-up">
+                    <div class="glass-card skill-card hover-trigger slide-up pop-on-hover">
                         <i class="fas fa-robot icon-glow"></i>
                         <h3>AI Coding</h3>
                         <div class="progress-bar"><div class="fill" style="width: 40%"></div></div>
@@ -87,7 +94,7 @@
                 <div class="timeline">
                     <div class="timeline-item slide-up">
                         <div class="timeline-dot"></div>
-                        <div class="timeline-content glass-panel">
+                        <div class="timeline-content glass-panel pop-on-hover hover-trigger">
                             <span class="date">Current</span>
                             <h3>Graphic Design Mastery</h3>
                             <p>Deep diving into color theory, typography, and branding.</p>
@@ -95,7 +102,7 @@
                     </div>
                     <div class="timeline-item slide-up">
                         <div class="timeline-dot"></div>
-                        <div class="timeline-content glass-panel">
+                        <div class="timeline-content glass-panel pop-on-hover hover-trigger">
                             <span class="date">2023 - Present</span>
                             <h3>Minecraft Development (Using AI)</h3>
                             <p>Creating plugins like Clean PingX and managing server communities.</p>
@@ -109,7 +116,7 @@
             <div class="container">
                 <h2 class="section-title">Selected Works</h2>
                 <div class="grid-layout">
-                    <a href="https://modrinth.com/plugin/clean-pingx" target="_blank" class="project-card glass-card hover-trigger slide-up">
+                    <a href="https://modrinth.com/plugin/clean-pingx" target="_blank" class="project-card glass-card hover-trigger slide-up pop-on-hover">
                         <div class="card-badge">Featured</div>
                         <div class="project-info">
                             <h3>Clean PingX</h3>
@@ -118,8 +125,7 @@
                             <span class="link-text">View on Modrinth <i class="fas fa-arrow-right"></i></span>
                         </div>
                     </a>
-                    
-                    <div class="project-card glass-card hover-trigger slide-up coming-soon">
+                    <div class="project-card glass-card hover-trigger slide-up coming-soon pop-on-hover">
                         <div class="project-info">
                             <h3>More Plugins</h3>
                             <p class="tech-stack">Development</p>
@@ -135,12 +141,12 @@
             <div class="container">
                 <h2 class="section-title">Join The Hub</h2>
                 <div class="community-grid">
-                    <a href="https://discord.gg/EFmvxTfVKS" target="_blank" class="glass-card comm-card discord hover-trigger slide-up">
+                    <a href="https://discord.gg/EFmvxTfVKS" target="_blank" class="glass-card comm-card discord hover-trigger slide-up pop-on-hover">
                         <i class="fab fa-discord"></i>
                         <h3>Discord Server</h3>
                         <p>Join the community, get support, and chat.</p>
                     </a>
-                    <a href="https://www.youtube.com/@DarkWaveOP" target="_blank" class="glass-card comm-card youtube hover-trigger slide-up">
+                    <a href="https://www.youtube.com/@DarkWaveOP" target="_blank" class="glass-card comm-card youtube hover-trigger slide-up pop-on-hover">
                         <i class="fab fa-youtube"></i>
                         <h3>DarkWaveOP</h3>
                         <p>My Minecraft gaming channel featuring gameplay and fun moments.</p>
@@ -151,7 +157,7 @@
 
         <section id="contact" class="section-padding">
             <div class="container">
-                <div class="glass-panel contact-panel slide-up">
+                <div class="glass-panel contact-panel slide-up pop-on-hover hover-trigger">
                     <h2>Let's Create Something</h2>
                     <p>Open for collaborations and design opportunities.</p>
                     <div class="social-links">
@@ -165,7 +171,7 @@
     </main>
 
     <footer>
-        <p>&copy; 2026 AR. All rights reserved.</p>
+        <p>&copy; 2024 AR. All rights reserved.</p>
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
